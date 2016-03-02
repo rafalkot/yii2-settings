@@ -16,7 +16,7 @@
             "homepage": "http://rkot.pl/"
         }
     ],
-    "version": "1.0",
+    "version": "1.0.0",
     "require": {
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*"
