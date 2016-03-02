@@ -1,0 +1,29 @@
+{
+    "name": "rafalkot/yii2-settings",
+    "description": "Simple settings management for Yii Framework 2.0",
+    "keywords": ["yii2", "extension", "component", "settings", "config"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/rafalkot/yii2-settings/issues",
+        "forum": "http://www.yiiframework.com/forum/",
+        "source": "https://github.com/rafalkot/yii2-settings"
+    },
+    "authors": [
+        {
+            "name": "Rafal Kot",
+            "email": "rafal@rkot.pl",
+            "homepage": "http://rkot.pl/"
+        }
+    ],
+    "version": "1.0",
+    "require": {
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-bootstrap": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "rafalkot\\yii2settings\\": ""
+        }
+    }
+}
