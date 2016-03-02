@@ -1,5 +1,5 @@
 <?php
-use rafalkot\settings\SettingsModel;
+use rafalkot\yii2settings\SettingsModel;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Alert;
 use yii\bootstrap\Button;
@@ -38,8 +38,11 @@ foreach ($elements as $key => $element) {
     }
 }
 
+echo '<div class="form-group">';
 echo Button::widget([
     'label' => Yii::t('yii2settings', 'Save'),
     'options' => ['class' => 'btn-primary']
 ]);
+echo '</div>';
+
 $form->end();
