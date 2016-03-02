@@ -11,16 +11,9 @@ Settings management component for Yii2 Framework.
 
 ## Installation
 ### 1. Install via composer
-Add this line to **require** section of your **composer.json**
 
 ```
- "rafalkot/yii2-settings": "*"
-```
-
-**Update composer** by running command
-
-```
-$ php composer.phar update
+$ composer require rafalkot/yii2-settings
 ```
 
 ### 2. Add component to your app config
@@ -31,7 +24,7 @@ Add yii2-settings component to your configuration files
 'components' => [
 	...
 	'settings' => [
-		'class' => 'rafalkot\yii2settings\Setting',
+		'class' => 'rafalkot\yii2settings\Settings',
 		// optional configuration:
 		'db' => 'db', // DB Component ID
 		'preLoad' => ['category1', 'category2'] // Categories to be loaded on component initialization
@@ -118,16 +111,18 @@ Yii::$app->settings->load(['categoryName1', 'categoryName2']);
 Example usage (all operations are using `site` category):
 
 ```php
+namespace app\components;
+
 use rafalkot\yii2settings\SettingsTrait;
 
 class Site
 {
-	use SettingsTrait;
-	
-	public function getSettingsCategoryName()
-	{
-		return 'site';
-	}
+    use SettingsTrait;
+
+    public function getSettingsCategory()
+    {
+        return 'site';
+    }
 	
 	public function someMethod()
 	{
@@ -149,63 +144,70 @@ It could be done by overriding `getSettingsFormConfig` method from `SettingsTrai
 Firstly, let's add form definition to our class:
 
 ```php
+namespace app\components;
+
 use rafalkot\yii2settings\SettingsTrait;
 use yii\jui\DatePicker;
 
 class Site
 {
-	use SettingsTrait;
-	
-	public function getSettingsCategoryName()
-	{
-		return 'site';
-	}
+    use SettingsTrait;
 
-	public function getSettingsFormConfig()
-	{
-		return [
-			// text input
-			'title' => [
-				'input' => 'text',
-				'label' => 'Site Title'
-			],
-			// dropdown list
-			'comments' => [
-				'input' => 'dropdown',
-				'label' => 'Are comments enabled?',
-				'options' => [1 => 'Yes', 0 => 'No'],
-				'default' => 1
-			],
-			// checkboxes
-			'languages' => [
-				'input' => 'checkboxList',
-				'options' => ['en' => 'English', 'pl' => 'Polish']
-			],
-			// custom input
-			'custom_input' => [
-				'input' => function($model, $key) {
-	                 return DatePicker::widget(['model' => $model, 'attribute' => $key);
-	       		},
-	          	'label' => 'Some label'
-			]
-		];
-	}
+    public function getSettingsCategory()
+    {
+        return 'site';
+    }
+
+    public function getSettingsFormConfig()
+    {
+        return [
+            // text input
+            'title' => [
+                'input' => 'text',
+                'label' => 'Site Title'
+            ],
+            // dropdown list
+            'comments' => [
+                'input' => 'dropdown',
+                'label' => 'Are comments enabled?',
+                'options' => [1 => 'Yes', 0 => 'No'],
+                'default' => 1
+            ],
+            // checkboxes
+            'languages' => [
+                'input' => 'checkboxList',
+                'options' => ['en' => 'English', 'pl' => 'Polish']
+            ],
+            // custom input
+            'custom_input' => [
+                'input' => function ($model, $key) {
+                    return DatePicker::widget(['model' => $model, 'attribute' => $key]);
+                },
+                'label' => 'Some label'
+            ]
+        ];
+    }
 }
 ```
 
 Sample action
 
 ```php
-class SettingsController extends yii\web\Controller
+namespace app\controllers;
+
+use yii\web\Controller;
+use app\components\Site;
+
+class Yii2SettingsController extends Controller
 {
-	public function actionSite()
-	{
-		$site = new Site();
-		
-		$this->render('site', [
-			'site' => $site
-		]);
-	}
+	public function actionExample()
+    {
+        $site = new Site();
+
+        return $this->render('example', [
+            'site' => $site
+        ]);
+    }
 }
 ```
 
@@ -215,7 +217,7 @@ Widget's usage in view
 use rafalkot\yii2settings\SettingsForm;
 
 echo SettingsForm::widget([
-	'object' => $site
+    'object' => $site
 ]);
 ```
 
