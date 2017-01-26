@@ -26,14 +26,14 @@ foreach ($elements as $key => $element) {
     } else {
         switch ($element['input']) {
             case 'dropdown':
-                echo $form->field($model, $key)->dropDownList($element['options']);
+                echo $form->field($model, $key)->dropDownList($element['options'])->label($element['label']);
                 break;
             case 'checkboxList':
-                echo $form->field($model, $key)->checkboxList($element['options']);
+                echo $form->field($model, $key)->checkboxList($element['options'])->label($element['label']);
                 break;
             default:
             case 'text':
-                echo $form->field($model, $key);
+                echo $form->field($model, $key)->label($element['label']);
         }
     }
 }
